@@ -13,8 +13,19 @@ class Voice(commands.Cog):
             await connected.channel.connect()
 
     @commands.command()
+    async def stop(self, ctx):
+        """Stops audio"""
+        if not ctx.voice_client:
+            return await ctx.send("I'm not in a voice channel!")
+
+        ctx.voice_client.stop()
+
+    @commands.command()
     async def leave(self, ctx):
         """Leaves the voice channel"""
+        if not ctx.voice_client:
+            return await ctx.send("I'm not in a voice channel!")
+
         await ctx.voice_client.disconnect()
 
 
