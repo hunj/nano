@@ -11,12 +11,21 @@ if os.environ.get('RUNNING_DOCKER_COMPOSE'):
 else:
     TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
 
+# heroku-specific.
+# Need to run `heroku labs:enable runtime-dyno-metadata -a <app_name>` to activate this environment variable
+COMMIT_HASH = os.environ.get("HEROKU_SLUG_COMMIT")
+if not COMMIT_HASH:
+    with os.popen('git rev-list --max-count=1 HEAD') as stdout:
+        COMMIT_HASH = stdout.read().strip()
+
+
 client = commands.Bot(command_prefix=commands.when_mentioned)
 
 
 @client.event
 async def on_ready():
-    await client.change_presence(status=discord.Status.idle, activity=discord.Game("Listening to .help"))
+    activity = discord.Activity(type=discord.ActivityType.listening, name=f"on {COMMIT_HASH}")
+    await client.change_presence(status=discord.Status.idle, activity=activity)
 
 
 @client.command()
