@@ -10,6 +10,7 @@ services:
     ports:
       - "8000:8000"
     environment:
+      RUNNING_DOCKER_COMPOSE: 1
       DISCORD_BOT_TOKEN: /var/run/secrets/discord_bot_token
     secrets:
       - discord_bot_token
