@@ -20,7 +20,7 @@ async def on_ready():
 
 
 @client.command()
-async def about(ctx: Context, extension):
+async def about(ctx: Context):
     """About Hakase"""
     embed = discord.Embed(title="Hakase", url="https://github.com/hunj/hakase", description="Personal assistant Discord bot.")
     embed.set_author(name="LeBronzeAims#6562")
