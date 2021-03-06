@@ -20,6 +20,14 @@ async def on_ready():
 
 
 @client.command()
+async def about(ctx: Context, extension):
+    """About Hakase"""
+    embed = discord.Embed(title="Hakase", url="https://github.com/hunj/hakase", description="Personal assistant Discord bot.")
+    embed.set_author(name="LeBronzeAims#6562")
+    await ctx.send(embed=embed)
+
+
+@client.command()
 @commands.is_owner()
 async def load(ctx: Context, extension):
     client.load_extension(f'cogs.{extension}')
