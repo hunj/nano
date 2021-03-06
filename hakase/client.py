@@ -24,7 +24,7 @@ client = commands.Bot(command_prefix=commands.when_mentioned)
 
 @client.event
 async def on_ready():
-    activity = discord.Activity(type=discord.ActivityType.streaming, name=f"on {COMMIT_HASH[:8]}", url="https://github.com/hunj/hakase")
+    activity = discord.Activity(type=discord.ActivityType.listening, name=COMMIT_HASH[:8])
     await client.change_presence(status=discord.Status.idle, activity=activity)
 
 
