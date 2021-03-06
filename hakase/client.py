@@ -44,7 +44,6 @@ async def ping(ctx: Context):
     await ctx.send(f"pong ({str(round(client.latency * 1000))}ms)")
 
 
-
 @client.command()
 @commands.is_owner()
 async def load(ctx: Context, extension):
@@ -74,7 +73,8 @@ async def unload(ctx: Context, extension):
 async def reload(ctx: Context, extension):
     client.unload_extension(f'cogs.{extension}')
     client.load_extension(f'cogs.{extension}')
-    await ctx.send("Reloaded Cog")
+    await ctx.send(f"✅ Reloaded Cog `{extension}`")
+
 
 for filename in os.listdir('./hakase/cogs'):
     if filename.endswith('.py'):
