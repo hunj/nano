@@ -11,7 +11,7 @@ if os.environ.get('RUNNING_DOCKER_COMPOSE'):
 else:
     TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
 
-client = commands.Bot(command_prefix='.')
+client = commands.Bot(command_prefix=commands.when_mentioned)
 
 
 @client.event
