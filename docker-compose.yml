@@ -4,9 +4,7 @@ services:
   hakase:
     container_name: bot
     build: .
-    command: python client.py
-    volumes:
-      - ./hakase:/app
+    command: python hakase/client.py
     ports:
       - "8000:8000"
     environment:
