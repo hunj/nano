@@ -30,15 +30,25 @@ async def about(ctx: Context, extension):
 @client.command()
 @commands.is_owner()
 async def load(ctx: Context, extension):
-    client.load_extension(f'cogs.{extension}')
-    await ctx.send("Loaded Cog")
+    try:
+        client.load_extension(f'cogs.{extension}')
+    except commands.ExtensionAlreadyLoaded:
+        return await ctx.send(f"💢 Cog `{extension}` already loaded.")
+    except commands.ExtensionNotFound:
+        return await ctx.send(f"💢 Cog `{extension}` not found.")
+
+    await ctx.send(f"✅ Loaded Cog `{extension}`")
 
 
 @client.command()
 @commands.is_owner()
 async def unload(ctx: Context, extension):
-    client.unload_extension(f'cogs.{extension}')
-    await ctx.send("Unloaded Cog")
+    try:
+        client.unload_extension(f'cogs.{extension}')
+    except commands.ExtensionNotLoaded:
+        return await ctx.send(f"💢 Cog `{extension}` not loaded.")
+
+    await ctx.send(f"✅ Unloaded Cog `{extension}`")
 
 
 @client.command()
