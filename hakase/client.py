@@ -44,6 +44,12 @@ async def ping(ctx: Context):
     await ctx.send(f"pong ({str(round(client.latency * 1000))}ms)")
 
 
+@client.command(aliases=["say"])
+async def echo(ctx: Context, *, content: str):
+    """Pings the bot for latency"""
+    await ctx.send(content)
+
+
 @client.command()
 @commands.is_owner()
 async def load(ctx: Context, extension):
