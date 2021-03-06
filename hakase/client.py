@@ -24,6 +24,7 @@ async def about(ctx: Context):
     """About Hakase"""
     embed = discord.Embed(title="Hakase", url="https://github.com/hunj/hakase", description="Personal assistant Discord bot.")
     embed.set_author(name="LeBronzeAims#6562")
+    embed.set_image(url="https://raw.githubusercontent.com/hunj/hakase/main/hakase/hakase.png")
     await ctx.send(embed=embed)
 
 
