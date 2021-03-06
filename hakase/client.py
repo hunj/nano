@@ -17,22 +17,24 @@ client = commands.Bot(command_prefix='.')
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.idle, activity=discord.Game("Listening to .help"))
-    print("I am online")
 
 
 @client.command()
+@commands.is_owner()
 async def load(ctx: Context, extension):
     client.load_extension(f'cogs.{extension}')
     await ctx.send("Loaded Cog")
 
 
 @client.command()
+@commands.is_owner()
 async def unload(ctx: Context, extension):
     client.unload_extension(f'cogs.{extension}')
     await ctx.send("Unloaded Cog")
 
 
 @client.command()
+@commands.is_owner()
 async def reload(ctx: Context, extension):
     client.unload_extension(f'cogs.{extension}')
     client.load_extension(f'cogs.{extension}')
