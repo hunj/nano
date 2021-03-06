@@ -12,12 +12,12 @@ class Cryptocurrency(commands.Cog):
             "X-CoinAPI-Key": api_key,
         }
 
-    @commands.command()
-    async def btc(self, ctx, currency_to="USD"):
+    @commands.command(name="cryptorate")
+    async def crypto(self, ctx, currency_from="DOGE", currency_to="USD"):
         """
-        Checks BTC price
+        Checks DOGE price
         """
-        endpoint = f"{self.api_host}/exchangerate/BTC/{currency_to}"
+        endpoint = f"{self.api_host}/exchangerate/{currency_from.upper()}/{currency_to.upper()}"
         session = aiohttp.ClientSession()
         response = await session.get(endpoint, headers=self.headers)
         data = await response.json()
