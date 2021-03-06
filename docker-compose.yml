@@ -12,9 +12,13 @@ services:
     environment:
       RUNNING_DOCKER_COMPOSE: 1
       DISCORD_BOT_TOKEN: /var/run/secrets/discord_bot_token
+      COINAPI_KEY: /var/run/secrets/coinapi_key
     secrets:
       - discord_bot_token
+      - coinapi_key
 
 secrets:
   discord_bot_token:
     file: ./secrets/discord_bot_token
+  coinapi_key:
+    file: ./secrets/coinapi_key
