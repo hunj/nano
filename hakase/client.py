@@ -19,7 +19,7 @@ if not COMMIT_HASH:
         COMMIT_HASH = stdout.read().strip()
 
 
-client = commands.Bot(command_prefix=commands.when_mentioned)
+client = commands.Bot(command_prefix=commands.when_mentioned_or('.'))
 
 
 @client.event
