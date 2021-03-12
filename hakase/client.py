@@ -4,7 +4,9 @@ from discord.ext.commands import Context
 
 import os
 
-if os.environ.get('RUNNING_DOCKER_COMPOSE'):
+DEV_MODE = os.environ.get('RUNNING_DOCKER_COMPOSE', False)
+
+if DEV_MODE:
     token_file_path = os.environ.get("DISCORD_BOT_TOKEN")
     with open(token_file_path, 'r') as token_file:
         TOKEN = token_file.read()
@@ -25,7 +27,10 @@ client = commands.Bot(command_prefix=commands.when_mentioned_or('.'))
 @client.event
 async def on_ready():
     print("I'm ready")
-    activity = discord.Activity(type=discord.ActivityType.listening, name=COMMIT_HASH[:8])
+    if DEV_MODE:
+        activity = discord.Activity(type=discord.ActivityType.listening, name=COMMIT_HASH[:8])
+    else:
+        activity = discord.Activity(type=discord.ActivityType.playing, name=f"on {COMMIT_HASH[:8]}")
     await client.change_presence(status=discord.Status.idle, activity=activity)
 
 
