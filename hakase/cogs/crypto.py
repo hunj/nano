@@ -12,12 +12,30 @@ class Cryptocurrency(commands.Cog):
             "X-CoinAPI-Key": api_key,
         }
 
-    @commands.command(name="cryptorate")
-    async def crypto(self, ctx, currency_from="DOGE", currency_to="USD"):
+    @commands.command(name="doge")
+    async def doge_to(self, ctx, to="USD"):
         """
         Checks DOGE price
         """
-        endpoint = f"{self.api_host}/exchangerate/{currency_from.upper()}/{currency_to.upper()}"
+        endpoint = f"{self.api_host}/exchangerate/DOGE/{to.upper()}"
+        session = aiohttp.ClientSession()
+        response = await session.get(endpoint, headers=self.headers)
+        data = await response.json()
+        await session.close()
+
+        if data.get('error'):
+            return await ctx.send(f"Could not fetch info. Reason: {data['error']}")
+
+        message = f"1 {data['asset_id_base']} = {data['asset_id_quote']} {data['rate']}"
+        await ctx.send(message)
+
+
+    @commands.command(name="btc")
+    async def btc_to(self, ctx, to="USD"):
+        """
+        Checks BTC price
+        """
+        endpoint = f"{self.api_host}/exchangerate/BTC/{to.upper()}"
         session = aiohttp.ClientSession()
         response = await session.get(endpoint, headers=self.headers)
         data = await response.json()
