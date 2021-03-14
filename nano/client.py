@@ -36,10 +36,10 @@ async def on_ready():
 
 @client.command()
 async def about(ctx: Context):
-    """About Hakase"""
-    embed = discord.Embed(title="Hakase", url="https://github.com/hunj/hakase", description="Personal assistant Discord bot.")
+    """About Nano"""
+    embed = discord.Embed(title="Nano", url="https://github.com/hunj/nano", description="Personal assistant Discord bot.")
     embed.set_author(name="LeBronzeAims#6562")
-    embed.set_image(url="https://raw.githubusercontent.com/hunj/hakase/main/hakase/hakase.png")
+    embed.set_image(url="https://raw.githubusercontent.com/hunj/nano/main/nano/nano.png")
     await ctx.send(embed=embed)
 
 
@@ -87,7 +87,7 @@ async def reload(ctx: Context, extension):
     await ctx.send(f"✅ Reloaded Cog `{extension}`")
 
 
-for filename in os.listdir('./hakase/cogs'):
+for filename in os.listdir('./nano/cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[0:-3]}')
 

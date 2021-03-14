@@ -29,7 +29,6 @@ class Cryptocurrency(commands.Cog):
         message = f"1 {data['asset_id_base']} = {data['asset_id_quote']} {data['rate']}"
         await ctx.send(message)
 
-
     @commands.command(name="btc")
     async def btc_to(self, ctx, to="USD"):
         """

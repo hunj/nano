@@ -1,1 +1,1 @@
-worker: python hakase/client.py
+worker: python nano/client.py

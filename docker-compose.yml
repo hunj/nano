@@ -1,12 +1,12 @@
 version: '3.5'
 
 services:
-  hakase:
+  nano:
     container_name: bot
     build: .
-    command: python hakase/client.py
+    command: python nano/client.py
     volumes:
-      - ./hakase:/app/hakase
+      - ./nano:/app/nano
     ports:
       - "8000:8000"
     environment:
