@@ -13,12 +13,16 @@ services:
       RUNNING_DOCKER_COMPOSE: 1
       DISCORD_BOT_TOKEN: /var/run/secrets/discord_bot_token
       COINAPI_KEY: /var/run/secrets/coinapi_key
+      OPENWEATHERMAP_KEY: /var/run/secrets/openweathermap_key
     secrets:
       - discord_bot_token
       - coinapi_key
+      - openweathermap_key
 
 secrets:
   discord_bot_token:
     file: ./secrets/discord_bot_token
   coinapi_key:
     file: ./secrets/coinapi_key
+  openweathermap_key:
+    file: ./secrets/openweathermap_key
