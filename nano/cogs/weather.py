@@ -14,7 +14,7 @@ class Weather(commands.Cog):
     @commands.command(name="weather")
     async def weather(self, ctx, location="Cleveland", unit="c"):
         """
-        Checks DOGE price
+        Gets weather for given location & unit (default is Cleveland & Celsius).
         """
         geolocator = Nominatim(user_agent=self.user_agent)
         loc = geolocator.geocode(location)
