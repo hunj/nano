@@ -20,8 +20,10 @@ if not COMMIT_HASH:
     with os.popen('git rev-list --max-count=1 HEAD') as stdout:
         COMMIT_HASH = stdout.read().strip()
 
+INTENTS = discord.Intents.default()
+INTENTS.message_content = True
 
-client = commands.Bot(command_prefix=commands.when_mentioned_or('.'))
+client = commands.Bot(command_prefix=commands.when_mentioned_or('.'), intents=INTENTS)
 
 
 @client.event
