@@ -35,12 +35,17 @@ async def on_ready():
         activity = discord.Activity(type=discord.ActivityType.playing, name=f"on {COMMIT_HASH[:8]}")
     await client.change_presence(status=discord.Status.idle, activity=activity)
 
+    # autoload all cogs
+    for filename in os.listdir('./nano/cogs'):
+        if filename.endswith('.py'):
+            await client.load_extension(f'cogs.{filename[0:-3]}')
+
 
 @client.command()
 async def about(ctx: Context):
     """About Nano"""
     embed = discord.Embed(title="Nano", url="https://github.com/hunj/nano", description="Personal assistant Discord bot.")
-    embed.set_author(name="LeBronzeAims#6562")
+    embed.set_author(name="LeBronzeAims#6969")
     embed.set_image(url="https://raw.githubusercontent.com/hunj/nano/main/nano/nano.png")
     await ctx.send(embed=embed)
 
@@ -86,14 +91,9 @@ async def unload(ctx: Context, extension):
 @client.command()
 @commands.is_owner()
 async def reload(ctx: Context, extension):
-    client.unload_extension(f'cogs.{extension}')
-    client.load_extension(f'cogs.{extension}')
+    await client.unload_extension(f'cogs.{extension}')
+    await client.load_extension(f'cogs.{extension}')
     await ctx.send(f"✅ Reloaded Cog `{extension}`")
-
-
-for filename in os.listdir('./nano/cogs'):
-    if filename.endswith('.py'):
-        client.load_extension(f'cogs.{filename[0:-3]}')
 
 
 client.run(TOKEN)
