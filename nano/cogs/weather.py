@@ -41,7 +41,7 @@ class Weather(commands.Cog):
         await ctx.send(message)
 
 
-def setup(client):
+async def setup(client):
     if os.environ.get('RUNNING_DOCKER_COMPOSE'):
         key_file_path = os.environ.get("OPENWEATHERMAP_KEY")
         with open(key_file_path, 'r') as key_file:
@@ -49,4 +49,4 @@ def setup(client):
     else:
         API_KEY = os.environ.get("OPENWEATHERMAP_KEY")
 
-    client.add_cog(Weather(client, API_KEY))
+    await client.add_cog(Weather(client, API_KEY))

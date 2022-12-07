@@ -72,5 +72,5 @@ class Voice(commands.Cog):
         ctx.voice_client.play(FFmpegOpusAudio(listen_moe_endpoint))
 
 
-def setup(client):
-    client.add_cog(Voice(client))
+async def setup(client):
+    await client.add_cog(Voice(client))
