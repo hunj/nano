@@ -61,11 +61,13 @@ async def echo(ctx: Context, *, content: str):
 @commands.is_owner()
 async def load(ctx: Context, extension):
     try:
-        client.load_extension(f'cogs.{extension}')
+        await client.load_extension(f'cogs.{extension}')
     except commands.ExtensionAlreadyLoaded:
         return await ctx.send(f"💢 Cog `{extension}` already loaded.")
     except commands.ExtensionNotFound:
         return await ctx.send(f"💢 Cog `{extension}` not found.")
+    except Exception as e:
+        return await ctx.send(f"💢 Cog `{extension}` could not be loaded: {str(e)}")
 
     await ctx.send(f"✅ Loaded Cog `{extension}`")
 
@@ -74,7 +76,7 @@ async def load(ctx: Context, extension):
 @commands.is_owner()
 async def unload(ctx: Context, extension):
     try:
-        client.unload_extension(f'cogs.{extension}')
+        await client.unload_extension(f'cogs.{extension}')
     except commands.ExtensionNotLoaded:
         return await ctx.send(f"💢 Cog `{extension}` not loaded.")
 
