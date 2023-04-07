@@ -1,10 +1,14 @@
-FROM python:3.9.2
-ENV PYTHONUNBUFFERED 1
+FROM python:3.10
 
-RUN mkdir /app
-WORKDIR /app
+WORKDIR /src
 
-COPY requirements.txt /app
-RUN pip install -r requirements.txt
+COPY pyproject.toml /src/pyproject.toml
+COPY poetry.lock /src/poetry.lock
 
-COPY . /app
+RUN pip install poetry
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-root
+
+COPY . /src
+
+CMD ["poetry", "run", "nano/client.py"]
