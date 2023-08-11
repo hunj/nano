@@ -1,0 +1,5 @@
+secrets:
+  coinapi_key: 
+  discord_bot_key: 
+  openweatherapi_key:
+
