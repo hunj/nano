@@ -10,6 +10,7 @@ python = "^3.10"
 "discord.py" = {extras = ["voice"], version = "^2.2.2"}
 youtube_dl = "^2021.12.17"
 geopy = "^2.3.0"
+pyyaml = "^6.0.1"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.0.0"
