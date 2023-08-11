@@ -1,5 +1,4 @@
 secrets:
-  coinapi_key: 
-  discord_bot_key: 
-  openweatherapi_key:
-
+  coinapi_key:
+  discord_bot_token:
+  openweathermap_key:
