@@ -10,19 +10,10 @@ services:
     ports:
       - "8000:8000"
     environment:
-      RUNNING_DOCKER_COMPOSE: 1
-      DISCORD_BOT_TOKEN: /var/run/secrets/discord_bot_token
-      COINAPI_KEY: /var/run/secrets/coinapi_key
-      OPENWEATHERMAP_KEY: /var/run/secrets/openweathermap_key
+      NANO_CONFIG: /var/run/secrets/nano_config
     secrets:
-      - discord_bot_token
-      - coinapi_key
-      - openweathermap_key
+      - nano_config
 
 secrets:
-  discord_bot_token:
-    file: ./secrets/discord_bot_token
-  coinapi_key:
-    file: ./secrets/coinapi_key
-  openweathermap_key:
-    file: ./secrets/openweathermap_key
+  nano_config:
+    file: ./config.yml
