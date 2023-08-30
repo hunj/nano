@@ -7,8 +7,6 @@ services:
     command: python nano/client.py
     volumes:
       - ./nano:/app/nano
-    ports:
-      - "8000:8000"
     environment:
       NANO_CONFIG: /var/run/secrets/nano_config
     secrets:
