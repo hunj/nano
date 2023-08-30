@@ -3,36 +3,30 @@ from discord.ext import commands
 from discord.ext.commands import Context
 
 import os
+import yaml
 
-DEV_MODE = os.environ.get('RUNNING_DOCKER_COMPOSE', False)
 
-if DEV_MODE:
-    token_file_path = os.environ.get("DISCORD_BOT_TOKEN")
-    with open(token_file_path, 'r') as token_file:
-        TOKEN = token_file.read()
-else:
-    TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
+### config bot
 
-# heroku-specific.
-# Need to run `heroku labs:enable runtime-dyno-metadata -a <app_name>` to activate this environment variable
-COMMIT_HASH = os.environ.get("HEROKU_SLUG_COMMIT")
-if not COMMIT_HASH:
-    with os.popen('git rev-list --max-count=1 HEAD') as stdout:
-        COMMIT_HASH = stdout.read().strip()
+NANO_CONFIG = {}
+if NANO_CONFIG_FILE := os.environ.get('NANO_CONFIG'):
+    with open(NANO_CONFIG_FILE, 'r') as config_file:
+        NANO_CONFIG = yaml.safe_load(config_file)
+TOKEN = NANO_CONFIG['secrets']['discord_bot_token']
 
 INTENTS = discord.Intents.default()
 INTENTS.message_content = True
 
 client = commands.Bot(command_prefix=commands.when_mentioned_or('.'), intents=INTENTS)
+COMMIT_HASH = "box//devmode"  # TODO figure out how to get commit hash
+
+### end config bot
 
 
 @client.event
 async def on_ready():
     print("I'm ready")
-    if DEV_MODE:
-        activity = discord.Activity(type=discord.ActivityType.listening, name=COMMIT_HASH[:8])
-    else:
-        activity = discord.Activity(type=discord.ActivityType.playing, name=f"on {COMMIT_HASH[:8]}")
+    activity = discord.Activity(type=discord.ActivityType.playing, name=f"on {COMMIT_HASH[:8]}")
     await client.change_presence(status=discord.Status.idle, activity=activity)
 
     # autoload all cogs
