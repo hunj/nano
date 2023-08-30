@@ -1,12 +1,16 @@
 from discord.ext import commands
 import aiohttp
 import os
+import yaml
 
 
 class Cryptocurrency(commands.Cog):
-    def __init__(self, client, api_key):
+    def __init__(self, client):
+        with open(os.environ['NANO_CONFIG']) as config_file:
+            nano_config = yaml.safe_load(config_file)
+        api_key = nano_config['secrets']['coinapi_key']
+
         self.client = client
-        self.api_key = api_key
         self.api_host = "https://rest.coinapi.io/v1"
         self.headers = {
             "X-CoinAPI-Key": api_key,
@@ -48,11 +52,4 @@ class Cryptocurrency(commands.Cog):
 
 
 async def setup(client):
-    if os.environ.get('RUNNING_DOCKER_COMPOSE'):
-        key_file_path = os.environ.get("COINAPI_KEY")
-        with open(key_file_path, 'r') as key_file:
-            API_KEY = key_file.read()
-    else:
-        API_KEY = os.environ.get("COINAPI_KEY")
-
-    await client.add_cog(Cryptocurrency(client, API_KEY))
+    await client.add_cog(Cryptocurrency(client))

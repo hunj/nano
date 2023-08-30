@@ -2,19 +2,24 @@ from discord.ext import commands
 from geopy.geocoders import Nominatim
 import aiohttp
 import os
+import yaml
 
 
 class Weather(commands.Cog):
-    def __init__(self, client, api_key):
+    def __init__(self, client):
+        with open(os.environ['NANO_CONFIG']) as config_file:
+            nano_config = yaml.safe_load(config_file)
+        api_key = nano_config['secrets']['openweathermap_key']
+
         self.client = client
         self.user_agent = "nano-bot"
         self.api_host = "https://api.openweathermap.org/data/2.5/onecall"
         self.api_key = api_key
 
     @commands.command(name="weather")
-    async def weather(self, ctx, location="Cleveland", unit="c"):
+    async def weather(self, ctx, location="Pittsburgh", unit="c"):
         """
-        Gets weather for given location & unit (default is Cleveland & Celsius).
+        Gets weather for given location & unit (default is Pittsburgh & Celsius).
         """
         geolocator = Nominatim(user_agent=self.user_agent)
         loc = geolocator.geocode(location)
@@ -42,11 +47,4 @@ class Weather(commands.Cog):
 
 
 async def setup(client):
-    if os.environ.get('RUNNING_DOCKER_COMPOSE'):
-        key_file_path = os.environ.get("OPENWEATHERMAP_KEY")
-        with open(key_file_path, 'r') as key_file:
-            API_KEY = key_file.read()
-    else:
-        API_KEY = os.environ.get("OPENWEATHERMAP_KEY")
-
-    await client.add_cog(Weather(client, API_KEY))
+    await client.add_cog(Weather(client))
