@@ -2,7 +2,7 @@
 name = "nano"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["hunj <3972717+hunj@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
@@ -12,6 +12,7 @@ youtube_dl = "^2021.12.17"
 geopy = "^2.3.0"
 pyyaml = "^6.0.1"
 ffmpeg = "^1.4"
+polygon-api-client = "^1.13.5"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.0.0"
