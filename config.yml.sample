@@ -2,3 +2,4 @@ secrets:
   coinapi_key:
   discord_bot_token:
   openweathermap_key:
+  polygonio_key:
