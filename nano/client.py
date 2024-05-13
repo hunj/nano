@@ -6,7 +6,7 @@ import os
 import yaml
 
 
-### config bot
+# config bot
 
 NANO_CONFIG = {}
 if NANO_CONFIG_FILE := os.environ.get('NANO_CONFIG'):
@@ -20,13 +20,13 @@ INTENTS.message_content = True
 client = commands.Bot(command_prefix=commands.when_mentioned_or('.'), intents=INTENTS)
 COMMIT_HASH = "box//devmode"  # TODO figure out how to get commit hash
 
-### end config bot
+# end config bot
 
 
 @client.event
 async def on_ready():
     print("I'm ready")
-    activity = discord.Activity(type=discord.ActivityType.playing, name=f"on {COMMIT_HASH[:8]}")
+    activity = discord.Activity(type=discord.ActivityType.playing, name=f"@ {COMMIT_HASH}")
     await client.change_presence(status=discord.Status.idle, activity=activity)
 
     # autoload all cogs
@@ -39,7 +39,7 @@ async def on_ready():
 async def about(ctx: Context):
     """About Nano"""
     embed = discord.Embed(title="Nano", url="https://github.com/hunj/nano", description="Personal assistant Discord bot.")
-    embed.set_author(name="LeBronzeAims#6969")
+    embed.set_author(name="LeBronzeAims")
     embed.set_image(url="https://raw.githubusercontent.com/hunj/nano/main/nano/nano.png")
     await ctx.send(embed=embed)
 
